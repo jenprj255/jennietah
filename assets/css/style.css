@@ -468,6 +468,16 @@ p {
     -ms-transform: rotate(-130deg);
     -o-transform: rotate(-130deg);
     transform: rotate(-130deg); } }
+
+/* Skill percentage clarification note */
+.skill_note{
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #9aa1b2;        /* soft gray, clearly secondary */
+  font-style: italic;
+}
+
 /*===========================
         02.HEADER css 
 ===========================*/
@@ -1077,11 +1087,108 @@ p {
     .single_service:hover .service_content p {
       color: #fff; }
 
+
+/* ===========================
+   Education Section
+=========================== */
+
+/* Make the card wide */
+.edu_card {
+  width: 100%;
+  color: inherit;
+}
+
+/* Remove extra top spacing from title */
+.edu_content .service_title{
+  margin-top: -20px;
+  margin-bottom: 2px;
+}
+
+/* Education card inner layout */
+.edu_card_inner{
+  display: flex;
+  gap: 28px;
+}
+
+/* Logo container — fixed size */
+.edu_logo{
+  flex: 0 0 100px;        /* 👈 fixed column width */
+  width: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* School name & period — unified style */
+.edu_univ,
+.edu_period{
+  font-size: 17px;
+  margin-top: 0;
+  font-weight: 400;        /* match normal text weight */
+}
+
+/* Tighten spacing between school & period */
+.edu_univ{
+  margin-bottom: 1px;
+}
+
+/* Period container spacing */
+.edu_meta{
+  margin-top: 0;
+}
+
+/* Description spacing */
+.edu_desc{
+  margin-top: 8px;
+  text-align: justify;
+  color: #2f3a4a;
+}
+/* Base list styles */
+.edu_points{
+  list-style: disc;
+  padding-left: 20px;
+  margin: 12px 0 0;
+  padding-bottom: 10px;
+  color: #2f3a4a;
+}
+
+.edu_points li{
+  list-style-position: outside;
+  margin-bottom: 7px;
+  line-height: 1.45;
+  font-size: 14.5px;
+  color: inherit; /* 👈 IMPORTANT */
+}
+
+/* Hover: change list + items */
+.edu_card:hover .edu_points,
+.edu_card:hover .edu_points li{
+  color: #fff;
+}
+
+/* Optional: explicitly style bullet color (modern browsers) */
+.edu_card:hover .edu_points li::marker{
+  color: #fff;
+}
+
+/* Smooth transition */
+.edu_univ,
+.edu_period {
+  transition: color 0.25s ease;
+}
+
+/* Change text color on card hover */
+.edu_card:hover .edu_univ,
+.edu_card:hover .edu_period {
+  color: #fff;
+}
+
 /* ===========================
    Certificates Section
 =========================== */
 
-.cert_card { /* keeps your existing single_service look */ }
+.cert_card
 
 .cert_inner{
   display: flex;
@@ -1099,18 +1206,26 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+    margin-top: 25px;           /* keeps alignment with title */
 }
 
 .cert_logo img{
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 10px;
+  padding: 6px;
+}
+
+.service_title{
+  font-size: 20px;
+  font-weight: 600;
+  color: #293651;
+  transition: color 0.25s ease;
 }
 
 .cert_content .service_title{
   margin: 0;
-  padding-top: 2px;
+  padding-top: 0px;
 }
 
 .cert_content .service_title a{
@@ -1123,6 +1238,10 @@ p {
   color: #9b6f2e;
 }
 
+.cert_card:hover .cert_meta{
+  color: #fff;
+}
+
 .cert_dot{
   margin: 0 8px;
   opacity: 0.7;
@@ -1133,25 +1252,32 @@ p {
   margin-bottom: 14px;
 }
 
-.cert_actions{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
 
-.ghost-btn{
+.cert-btn{
   display: inline-block;
   padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid rgba(135, 128, 100, 0.35);
-  color: #895a40;
-  transition: all 0.25s ease;
+  background: transparent;
+  color: #d3c0af;
   font-weight: 600;
   font-size: 14px;
+  transition: color 0.25s ease,
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              transform 0.2s ease;
 }
 
-.ghost-btn:hover{
-  background: rgba(255, 203, 108, 0.849);
+.cert-btn:hover{
+  background-color: #d3c0af;
+  color: #fff;
+  border-color: #d3c0af;
+  transform: translateY(-1px);
+}
+
+.cert_card:hover .cert-btn:not(:hover){
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 /* Responsive: stack logo on small screens */
@@ -1160,8 +1286,21 @@ p {
   .cert_logo{ width: 60px; min-width: 60px; height: 60px; }
 }
 
+.cert_actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+/* Responsive: stack logo on small screens */
+@media (max-width: 575px){
+  .cert_inner{ flex-direction: column; }
+  .cert_logo{ width: 60px; min-width: 60px; height: 60px; }
+}
+
 /* ===========================
-   Projects Section
+   Projects Section (simplified)
 =========================== */
 
 .project_inner{
@@ -1171,8 +1310,9 @@ p {
 }
 
 .project_thumb{
-  width: 42%;
-  border-radius: 18px;
+  width: 100%;
+  max-width: 180px;
+  border-radius: 20px;
   overflow: hidden;
   background: rgba(41, 54, 81, 0.07);
 }
@@ -1181,34 +1321,105 @@ p {
   width: 100%;
   height: auto;
   display: block;
+  align-self: center;
 }
 
 .project_content{
-  width: 58%;
+  width: 100%;
+  margin-right: 30px;
 }
 
+/* Title */
+.project_title{
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #293651;
+  transition: color 0.25s ease;
+}
+
+.project_title a{
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Meta */
 .project_meta{
   margin-top: 6px;
   font-size: 14px;
-  color: #646F87;
+  color: #7f6e5e;
+  transition: color 0.25s ease;
 }
 
-.project_meta .dot{
-  margin: 0 8px;
-}
+.project_meta .dot{ margin: 0 8px; }
 
+/* Description */
 .project_desc{
   margin-top: 12px;
+  text-align: justify;
+  color: #2f3a4a;
+  transition: color 0.25s ease;
 }
 
+.project_desc p{
+  margin: 0 0 10px;
+  color: inherit;
+}
+
+/* Bullets */
 .project_points{
-  margin-top: 12px;
-  padding-left: 18px;
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  padding-bottom: 10px;
+  color: inherit;
+  transition: color 0.25s ease;
 }
 
 .project_points li{
-  font-size: 15px;
-  line-height: 1.7;
+  list-style-position: outside;
+  margin-bottom: 7px;
+  line-height: 1.45;
+  font-size: 14.5px;
+  color: inherit;
+}
+
+/* Hover (card-driven, consistent) */
+.single_service:hover .project_title,
+.single_service:hover .project_meta,
+.single_service:hover .project_desc,
+.single_service:hover .project_points{
+  color: #fff;
+}
+
+/* If meta contains spans/links with their own color */
+.single_service:hover .project_meta *{
+  color: inherit;
+}
+
+/* Ghost button (keep #895a40 unchanged) */
+.ghost-btn{
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid #895a40;
+  color: #895a40;
+  background: transparent;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.ghost-btn:hover{
+  background: #895a40;
+  color: #fff;
+}
+
+/* When the whole card is hovered */
+.single_service:hover .ghost-btn{
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
 }
 
 .project_actions{
@@ -1222,11 +1433,11 @@ p {
 @media (max-width: 991px){
   .project_inner{
     flex-direction: column;
+    align-items: flex-start;
   }
 
-  .project_thumb,
   .project_content{
-    width: 100%;
+    margin-right: 0;
   }
 }
 
@@ -1317,7 +1528,6 @@ p {
       .call_to_action_box .call_to_action_btn .main-btn:hover {
         background-color: rgba(255, 255, 255, 0.8); }
 
-```css
 /*===========================
       11. FOOTER css (UIdeck FIX)
 ===========================*/
@@ -1503,54 +1713,81 @@ p {
   }
 }
 
+/* ===========================
+   BUTTON SYSTEM FIX (override UIdeck)
+   Put this at the VERY END of your CSS
+   Keeps #895a40 as the theme color
+=========================== */
+
+/* Base: both buttons share same shape + border thickness */
+.main-btn,
+.ghost-btn{
+  border-radius: 30px;            /* modern pill */
+  border: 2px solid #895a40;      /* same border as main */
+  height: 46px;                   /* consistent */
+  line-height: 42px;              /* (height - border*2) */
+  padding: 0 22px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+/* MAIN: filled */
+.main-btn{
+  background: #895a40;
+  color: #fff;
+}
+
+/* GHOST: outline */
+.ghost-btn{
+  background: transparent;
+  color: #895a40;
+}
+
+/* Better hover (keep brand color, just deepen it) */
+.main-btn:hover,
+.main-btn:focus{
+  background: #754a35;            /* darker shade of #895a40 */
+  border-color: #754a35;
+  color: #fff;
+}
+
+.ghost-btn:hover,
+.ghost-btn:focus{
+  background: rgba(137, 90, 64, 0.12); /* soft tinted hover */
+  color: #895a40;
+  border-color: #895a40;
+}
+
+/* When the whole card is hovered (brown background),
+   make BOTH buttons readable and consistent */
+.single_service:hover .main-btn,
+.single_service:hover .ghost-btn{
+  border-color: #fff;
+}
+
+/* Keep primary action visible on brown background */
+.single_service:hover .main-btn{
+  background: #fff;
+  color: #895a40;
+}
+
+/* Secondary action stays outline on hover */
+.single_service:hover .ghost-btn{
+  background: transparent;
+  color: #fff;
+}
+
+/* Optional: keyboard accessibility */
+.main-btn:focus-visible,
+.ghost-btn:focus-visible{
+  outline: 3px solid rgba(137, 90, 64, 0.35);
+  outline-offset: 2px;
+}
+
+
 
 /*# sourceMappingURL=style.css.map */
-
-/* Make the card wide */
-.edu_card {
-  width: 100%;
-}
-
-/* Remove extra top spacing from title */
-.edu_content .service_title{
-  margin-top: -20px;  /* removed extra space */  
-  margin-bottom: 2px;   /* tighter than before */
-}
-
-/* Education card inner layout */
-.edu_card_inner{
-  display: flex;
-  align-items: center;   /* center logo vertically */
-  gap: 28px;             /* space between logo and text */
-}
-
-/* Logo sizing */
-.edu_logo img{
-  width: 64px;
-  height: auto;
-  display: block;
-}
-
-/* School name & period — unified style */
-.edu_univ,
-.edu_period{
-  font-size: 17px;
-  font-weight: 500;
-  color: #6c757d;        /* consistent muted gray */
-  margin-top: 0;
-}
-
-/* Tighten spacing between school & period */
-.edu_univ{
-  margin-bottom: 1px;
-}
-
-.edu_meta{
-  margin-top: 0;
-}
-
-/* Description spacing */
-.edu_desc{
-  margin-top: 8px;
-}
 
