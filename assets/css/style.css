@@ -28,6 +28,10 @@ body {
   font-style: normal;
   color: #646F87; }
 
+html, body {
+  overflow-x: hidden;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -751,7 +755,7 @@ p {
   z-index: 5;
   background-position: bottom center;
   background-color: #F9F9F9;
-  overflow: hidden;
+  overflow: visible;
   padding-top: 70px; }
 
 .header_social {
@@ -793,6 +797,20 @@ p {
   .header_social { left: 20px; }
 }
 
+@media (max-width: 991px) {
+  .header_social {
+    position: static;
+    transform: none;
+    margin: 20px auto 0;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .header_social li a {
+    padding: 10px 12px;
+  }
+}
+
 /* anchor each icon for the popup */
 .header_social li{
   position: relative;
@@ -823,6 +841,10 @@ p {
 }
 
 /* ===== WeChat QR (SIDE ICON) ===== */
+.header_social li.wechat_wrapper{
+  z-index: 10000;               /* keep QR above hero elements */
+}
+
 .header_social li.wechat_wrapper .wechat_qr{
   position: absolute;
   left: calc(100% + 12px);        /* popup to the right of the side icon bar */
@@ -834,6 +856,7 @@ p {
   border-radius: 8px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 
+  display: block;
   opacity: 0;                     /* hidden by default */
   visibility: hidden;
   pointer-events: none;
@@ -845,13 +868,16 @@ p {
 }
 
 .header_social li.wechat_wrapper .wechat_qr img{
-  width: 160px;
+  width: 220px;
   height: auto;
   display: block;
 }
 
 /* show on hover */
-.header_social li.wechat_wrapper:hover .wechat_qr{
+.header_social li.wechat_wrapper:hover .wechat_qr,
+.header_social li.wechat_wrapper:focus-within .wechat_qr,
+.header_social li.wechat_wrapper.is-open .wechat_qr,
+.header_social li.wechat_wrapper .wechat_qr:hover{
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1110,13 +1136,44 @@ p {
       @media only screen and (min-width: 576px) and (max-width: 767px) {
         .single_service .service_content .service_title a {
           font-size: 18px; } }
-    .single_service .service_content p {
-      margin-top: 20px;
-      -webkit-transition: all 0.3s ease-out 0s;
-      -moz-transition: all 0.3s ease-out 0s;
-      -ms-transition: all 0.3s ease-out 0s;
-      -o-transition: all 0.3s ease-out 0s;
-      transition: all 0.3s ease-out 0s; }
+  .single_service .service_content p {
+    margin-top: 20px;
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s; }
+
+#experience .single_service .service_content {
+  display: flex;
+  flex-direction: column;
+}
+
+#experience .single_service .service_content p {
+  order: 1;
+}
+
+#experience .single_service .service_content .see_more {
+  order: 2;
+  margin-top: 14px;
+  font-weight: 600;
+  color: #895a40;
+  align-self: flex-start;
+}
+
+#experience .single_service .service_content .see_more:hover,
+#experience .single_service .service_content .see_more:focus {
+  color: #754a35;
+}
+
+.single_service:hover .service_content .see_more {
+  color: #fff !important;
+}
+
+.single_service:hover .service_content .see_more:hover,
+.single_service:hover .service_content .see_more:focus {
+  color: #fff;
+}
   .single_service:hover {
     background-color: #895a40; }
     .single_service:hover .service_icon i {
@@ -1704,6 +1761,8 @@ p {
 
 /* Show QR on hover AND keep it visible when hovering the QR */
 .footer_content .footer_social li.wechat_wrapper:hover .wechat_qr,
+.footer_content .footer_social li.wechat_wrapper:focus-within .wechat_qr,
+.footer_content .footer_social li.wechat_wrapper.is-open .wechat_qr,
 .footer_content .footer_social li.wechat_wrapper .wechat_qr:hover {
   opacity: 1;
   visibility: visible;
@@ -1825,6 +1884,125 @@ p {
 .ghost-btn:focus-visible{
   outline: 3px solid rgba(137, 90, 64, 0.35);
   outline-offset: 2px;
+}
+
+/* ===========================
+   Experience Detail Page
+=========================== */
+.experience_detail_area {
+  background-color: #F9F9F9;
+}
+
+.experience_detail_area .detail_intro {
+  margin-top: 10px;
+}
+
+.experience_detail_area .detail_points {
+  margin-top: 20px;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.experience_detail_area .detail_points li {
+  margin-bottom: 10px;
+}
+
+.experience_detail_area .detail_gallery {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.experience_detail_area .detail_photo {
+  margin: 0;
+}
+
+.experience_detail_area .detail_gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #e3e6ee;
+  cursor: zoom-in;
+}
+
+.experience_detail_area .detail_gallery figcaption {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #646F87;
+}
+
+html[lang="zh"] .experience_detail_area .detail_gallery figcaption {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Lightbox for experience photos */
+.lightbox_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 999999;
+}
+
+.lightbox_overlay img {
+  max-width: 92vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+
+.lightbox_overlay img.is-zoomed {
+  transform: scale(1.6);
+  cursor: zoom-out;
+}
+
+.lightbox_close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  font-size: 28px;
+  line-height: 1;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.experience_detail_area .photo_placeholder {
+  background: #f3f3f3;
+  border: 1px dashed #bfc5d2;
+  border-radius: 8px;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9aa1b2;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.experience_detail_area .back_link {
+  display: inline-block;
+  margin-top: 25px;
+  font-weight: 600;
+  color: #895a40;
+}
+
+.experience_detail_area .back_link:hover,
+.experience_detail_area .back_link:focus {
+  color: #754a35;
 }
 
 
